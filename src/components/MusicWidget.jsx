@@ -1,4 +1,3 @@
-// MusicWidget.jsx
 import React, { useEffect, useRef } from 'react';
 
 export default function MusicWidget({ analyser, isPlaying }) {
@@ -26,7 +25,6 @@ export default function MusicWidget({ analyser, isPlaying }) {
 
         dataArray.forEach(item => {
           const barHeight = (item / 255) * canvas.height;
-          // Matching the Aether Green aesthetic
           ctx.fillStyle = `rgba(29, 185, 84, ${item / 255 + 0.2})`;
           ctx.fillRect(x, canvas.height - barHeight, barWidth - 2, barHeight);
           x += barWidth;

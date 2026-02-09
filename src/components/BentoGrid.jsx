@@ -11,7 +11,7 @@ const initialCards = [
   { id: 4, title: 'Weather', size: 'small'},
 ];
 
-export default function BentoGrid() {
+function BentoGrid() {
   const [cards, setCards] = useState(initialCards);
   const [isPlaying, setIsPlaying] = useState(false);
   const [query, setQuery] = useState();
@@ -67,7 +67,7 @@ export default function BentoGrid() {
       const data = await response.json();
       if (data.results?.length > 0) {
         setSong(data.results[0]);
-        setIsPlaying(false); // Reset play state for the new track
+        setIsPlaying(false);
       }
     } catch (err) {
       console.error("Search failed:", err);
@@ -82,7 +82,6 @@ export default function BentoGrid() {
   useEffect(() => {
     const fetchWeather = async () => {
       try {
-        // Using a public API (replace YOUR_API_KEY with a free key from OpenWeather)
         const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=Lagos&units=metric&appid=YOUR_API_KEY`);
         const data = await res.json();
         setWeather({
@@ -91,7 +90,6 @@ export default function BentoGrid() {
           location: 'Lagos, NG'
         });
       } catch (err) {
-        // Fallback if the API fails or key is missing
         setWeather({ temp: 28, condition: 'Sunny', location: 'Lagos, NG' });
       }
     };
@@ -132,11 +130,8 @@ export default function BentoGrid() {
               </button>
               
               <div className="card-content">
-                {/* <div className="card-icon" style={{ color: card.color }}>
-                  {card.icon}
-                </div> */}
                 <h3>{card.title}</h3>
-                {card.title === 'Status' ? ( // Let's turn the "Status" tile into the Search bar
+                {card.title === 'Status' ? ( 
                   <div className="search-tile">
                     <input 
                       type="text" 
@@ -195,7 +190,6 @@ export default function BentoGrid() {
                 ) : card.title === 'Weather' ? (
                       <div className="weather-content">
                         <div className="weather-top">
-                          {/* <Cloud className="weather-icon" /> */}
                           <span className="temp">{weather.temp}&deg;C</span>
                         </div>
                         <p className="condition">{weather.condition}</p>
@@ -215,3 +209,5 @@ export default function BentoGrid() {
     </div>
   );
 }
+
+export default BentoGrid;
